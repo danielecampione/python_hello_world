@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
-from tkinter import messagebox
 from PIL import Image, ImageTk
+import itertools
 
 def center_window(window):
     window.update_idletasks()
@@ -39,6 +39,11 @@ def fade_out(window):
         window.after(10)
     window.destroy()
 
+def animate():
+    global img_label, img_sequence
+    img_label.config(image=next(img_sequence))
+    root.after(100, animate)
+
 # Creazione della finestra principale
 root = tk.Tk()
 root.title("Finestra di esempio")
@@ -60,6 +65,15 @@ close_button.pack(pady=10)
 # Creazione del pulsante "Informazioni su..."
 about_button = ttk.Button(root, text="Informazioni su...", command=show_about)
 about_button.pack(pady=10)
+
+# Caricamento delle immagini per l'animazione
+frames = [ImageTk.PhotoImage(file=f"frame_{i}.png") for i in range(1, 6)]  # Assicurati di avere le immagini frame_1.png, frame_2.png, ecc.
+img_sequence = itertools.cycle(frames)
+img_label = tk.Label(root)
+img_label.pack()
+
+# Avvio dell'animazione
+animate()
 
 # Posizionamento della finestra al centro del desktop
 center_window(root)
