@@ -54,6 +54,22 @@ def move_text():
     text_label.place(x=x+dx, y=y+dy)
     root.after(50, move_text)
 
+def change_style(style_name):
+    style.theme_use(style_name)
+
+def show_style_chooser():
+    style_chooser = tk.Toplevel(root)
+    style_chooser.title("Scegli lo stile")
+    style_chooser.geometry("300x200")
+    center_window(style_chooser)
+
+    label = ttk.Label(style_chooser, text="Seleziona uno stile:", font=("Helvetica", 12))
+    label.pack(pady=10)
+
+    for style_name in style.theme_names():
+        button = ttk.Button(style_chooser, text=style_name, command=lambda name=style_name: change_style(name))
+        button.pack(pady=5)
+
 # Creazione della finestra principale
 root = tk.Tk()
 root.title("Finestra di esempio")
@@ -76,6 +92,10 @@ close_button.pack(pady=10)
 about_button = ttk.Button(root, text="Informazioni su...", command=show_about)
 about_button.pack(pady=10)
 
+# Creazione del pulsante "Cambia stile"
+style_button = ttk.Button(root, text="Cambia stile", command=show_style_chooser)
+style_button.pack(pady=10)
+
 # Caricamento delle immagini per l'animazione
 frames = [ImageTk.PhotoImage(file=f"frame_{i}.png") for i in range(1, 6)]  # Assicurati di avere le immagini frame_1.png, frame_2.png, ecc.
 img_sequence = itertools.cycle(frames)
@@ -97,6 +117,9 @@ move_text()
 
 # Posizionamento della finestra al centro del desktop
 center_window(root)
+
+# Creazione dello stile
+style = ttk.Style()
 
 # Avvio del loop principale della finestra
 root.mainloop()
