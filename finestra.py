@@ -44,6 +44,16 @@ def animate():
     img_label.config(image=next(img_sequence))
     root.after(100, animate)
 
+def move_text():
+    global dx, dy
+    x, y = text_label.winfo_x(), text_label.winfo_y()
+    if x + dx < 0 or x + dx + text_label.winfo_width() > root.winfo_width():
+        dx = -dx
+    if y + dy < 0 or y + dy + text_label.winfo_height() > root.winfo_height():
+        dy = -dy
+    text_label.place(x=x+dx, y=y+dy)
+    root.after(50, move_text)
+
 # Creazione della finestra principale
 root = tk.Tk()
 root.title("Finestra di esempio")
@@ -74,6 +84,16 @@ img_label.pack()
 
 # Avvio dell'animazione
 animate()
+
+# Creazione della scritta 3D "Benvenuto"
+text_label = tk.Label(root, text="Benvenuto", font=("Helvetica", 32, "bold"), fg="blue")
+text_label.place(x=50, y=50)
+
+# Variabili per il movimento della scritta
+dx, dy = 2, 2
+
+# Avvio del movimento della scritta
+move_text()
 
 # Posizionamento della finestra al centro del desktop
 center_window(root)
