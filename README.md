@@ -8,4 +8,6 @@ File "pillow-11.0.0-cp313-cp313-win_amd64.whl" downloaded for Microsoft Windows 
 https://pypi.org/project/pillow/#files
 
 Command to execute in the terminal to install the Pillow library:
-`pip install pillow-11.0.0-cp313-cp313-win_amd64.whl
+```
+pip install pillow-11.0.0-cp313-cp313-win_amd64.whl
+```
