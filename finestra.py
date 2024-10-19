@@ -70,6 +70,13 @@ def show_style_chooser():
         button = ttk.Button(style_chooser, text=style_name, command=lambda name=style_name: change_style(name))
         button.pack(pady=5)
 
+def update_label(*args):
+    name = name_var.get()
+    if name:
+        label.config(text=f"Ciao {name}")
+    else:
+        label.config(text="Ciao mondo")
+
 # Creazione della finestra principale
 root = tk.Tk()
 root.title("Finestra di esempio")
@@ -79,6 +86,14 @@ bg_image = Image.open("background.jpg")  # Assicurati di avere un'immagine di sf
 bg_photo = ImageTk.PhotoImage(bg_image)
 bg_label = tk.Label(root, image=bg_photo)
 bg_label.place(relwidth=1, relheight=1)
+
+# Variabile per il nome
+name_var = tk.StringVar()
+name_var.trace_add('write', update_label)
+
+# Creazione di una barra testuale per inserire il nome
+name_entry = ttk.Entry(root, textvariable=name_var, font=("Helvetica", 16))
+name_entry.pack(padx=20, pady=10)
 
 # Creazione di un'etichetta con il messaggio "Ciao mondo"
 label = ttk.Label(root, text="Ciao mondo", font=("Helvetica", 24), background="white")
